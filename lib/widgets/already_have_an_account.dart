@@ -5,7 +5,7 @@ import '../widgets/constants.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function? press;
+  final void Function()? press;
 
   const AlreadyHaveAnAccountCheck({
     Key? key,
@@ -26,7 +26,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
               color: labalAndTextButtonColor),
         ),
         GestureDetector(
-          onTap: press as void Function()?,
+          onTap: press,
           child: Text(
             login ? "Sign Up" : "Login",
             style: GoogleFonts.cairo(

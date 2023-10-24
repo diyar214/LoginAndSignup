@@ -16,14 +16,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: scaffoldColor,
-      body: SafeArea(
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 80.0, horizontal: 20.0),
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Welcome Back',

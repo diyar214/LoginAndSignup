@@ -89,8 +89,9 @@ class _SignUpCardState extends State<SignUpCard> {
               obscureText: true,
               index: 1,
               validator: (value) {
-                if (value!.isEmpty || value.isValidPassword)
+                if (value!.isEmpty || value.isValidPassword) {
                   return 'Enter a valid password';
+                }
               }),
           MyTextFormField(
               label: Text(
@@ -105,8 +106,9 @@ class _SignUpCardState extends State<SignUpCard> {
               keyboardType: TextInputType.phone,
               obscureText: false,
               validator: (value) {
-                if (value!.isEmpty || value.isValidPhone)
+                if (value!.isEmpty || value.isValidPhone) {
                   return 'Enter a valid phone number';
+                }
               }),
           Padding(
             padding: const EdgeInsets.only(top: 25.0),
