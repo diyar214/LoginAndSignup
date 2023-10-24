@@ -31,7 +31,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
             login ? "Sign Up" : "Login",
             style: GoogleFonts.cairo(
               fontSize: 16,
-              color: primryColor,
+              color: primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

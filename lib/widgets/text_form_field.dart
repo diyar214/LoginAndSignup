@@ -47,7 +47,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
                       ? Icons.visibility
                       : Icons.visibility_off
                   : null,
-              color: primryColor,
+              color: primaryColor,
             ),
           ),
           label: widget.label,
@@ -58,7 +58,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
               ),
           border: border(labalAndTextButtonColor!),
           enabledBorder: border(labalAndTextButtonColor!),
-          focusedBorder: border(primryColor),
+          focusedBorder: border(primaryColor),
           errorBorder: border(errorBorderColor),
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login_page_task/widgets/constants.dart';
 
-import './forgot_password_screen.dart';
+import '../../widgets/constants.dart';
+import 'forgot_password_screen.dart';
 
-class ForgotPasswordLayot extends StatelessWidget {
-  const ForgotPasswordLayot({
+class ForgotPasswordLayout extends StatelessWidget {
+  const ForgotPasswordLayout({
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class ForgotPasswordLayot extends StatelessWidget {
             'Forgot your password? ',
             style: GoogleFonts.cairo(
               fontSize: 16,
-              color: primryColor,
+              color: primaryColor,
               fontWeight: FontWeight.w600,
             ),
           ),

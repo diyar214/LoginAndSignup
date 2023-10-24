@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Color primryColor = const Color.fromARGB(255, 88, 153, 179);
+Color primaryColor = const Color.fromARGB(255, 88, 153, 179);
 Color sconderyColor = Colors.white;
 Color scaffoldColor = const Color(0xfff1f0f3);
 Color textColor = Colors.black87;
