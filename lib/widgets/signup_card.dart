@@ -21,6 +21,7 @@ class SignUpCard extends StatefulWidget {
 class _SignUpCardState extends State<SignUpCard> {
   final _formKey = GlobalKey<FormState>();
 
+  bool _obscureText = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -51,8 +52,9 @@ class _SignUpCardState extends State<SignUpCard> {
               keyboardType: TextInputType.name,
               obscureText: false,
               validator: (value) {
-                if (value!.isEmpty || value.isValidName)
+                if (value!.isEmpty || value.isValidName) {
                   return 'Enter valid name';
+                }
               }),
           MyTextFormField(
               label: Text(
@@ -76,23 +78,27 @@ class _SignUpCardState extends State<SignUpCard> {
                 return null;
               }),
           MyTextFormField(
-              label: Text(
-                'Password',
-                style: GoogleFonts.cairo(
+            label: Text(
+              'Password',
+              style: GoogleFonts.cairo(
                   fontSize: 22,
                   color: labalAndTextButtonColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              index: 1,
-              validator: (value) {
-                if (value!.isEmpty || value.isValidPassword) {
-                  return 'Enter a valid password';
-                }
-              }),
+                  fontWeight: FontWeight.w600),
+            ),
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: _obscureText,
+            validator: (value) {
+              if (value!.isEmpty || value.isValidPassword) {
+                return 'Enter a valid password';
+              }
+            },
+            suffixIcon: IconButton(
+                onPressed: () => setState(() => _obscureText = !_obscureText),
+                icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: primaryColor)),
+          ),
           MyTextFormField(
               label: Text(
                 'Contact no.',
@@ -116,8 +122,7 @@ class _SignUpCardState extends State<SignUpCard> {
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                      MaterialPageRoute(builder: (_) => const HomeScreen()),
                       (route) => false);
                 }
               },

@@ -28,6 +28,7 @@ class _LogInCardState extends State<LogInCard> {
 
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  bool _obscureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +66,24 @@ class _LogInCardState extends State<LogInCard> {
                   return null;
                 }),
             MyTextFormField(
-                label: const Text('Password'),
-                controller: passwordController,
-                focusNode: passwordFocusNode,
-                textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                index: 1,
-                validator: (value) {
-                  if (value!.isEmpty || value.isValidPassword) {
-                    passwordFocusNode.requestFocus();
-                    return 'Enter a valid password';
-                  }
-                }),
+              label: const Text('Password'),
+              controller: passwordController,
+              focusNode: passwordFocusNode,
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: _obscureText,
+              validator: (value) {
+                if (value!.isEmpty || value.isValidPassword) {
+                  passwordFocusNode.requestFocus();
+                  return 'Enter a valid password';
+                }
+              },
+              suffixIcon: IconButton(
+                  onPressed: () => setState(() => _obscureText = !_obscureText),
+                  icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      color: primaryColor)),
+            ),
             const SizedBox(height: 8),
             const ForgotPasswordLayout(),
             Padding(
