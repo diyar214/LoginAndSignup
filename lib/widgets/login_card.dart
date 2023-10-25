@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login_page_task/widgets/app_button.dart';
 
-import '../screens/forgot_password/forgot_password_layout.dart';
+import 'forgot_password_layout.dart';
 import '../screens/home_screen.dart';
 import '../screens/signup_screen.dart';
 import 'already_have_an_account.dart';
@@ -40,13 +40,15 @@ class _LogInCardState extends State<LogInCard> {
             Text(
               'Login',
               style: GoogleFonts.cairo(
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: FontWeight.w500,
                 color: primaryColor,
               ),
             ),
             MyTextFormField(
               label: 'Email',
+              icon: Icons.email,
+              hint: 'example@example.com',
               controller: emailController,
               focusNode: emailFocusNode,
               keyboardType: TextInputType.emailAddress,
@@ -66,6 +68,8 @@ class _LogInCardState extends State<LogInCard> {
             ),
             MyTextFormField(
               label: 'Password',
+              icon: Icons.lock,
+              hint: 'e.g: Password123',
               controller: passwordController,
               focusNode: passwordFocusNode,
               textInputAction: TextInputAction.done,
@@ -77,7 +81,7 @@ class _LogInCardState extends State<LogInCard> {
                   return 'This field is required';
                 } else if (value.length < 8) {
                   passwordFocusNode.requestFocus();
-                  return 'Enter a valid password';
+                  return 'Password too short';
                 }
                 return null;
               },
@@ -85,7 +89,8 @@ class _LogInCardState extends State<LogInCard> {
                   onPressed: () => setState(() => _obscureText = !_obscureText),
                   icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: primaryColor)),
+                      color: primaryColor,
+                      size: 22)),
               onSaved: (String? value) => passwordController.text = value!,
             ),
             const SizedBox(height: 8),

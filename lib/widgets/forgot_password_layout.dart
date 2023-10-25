@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../widgets/constants.dart';
-import 'forgot_password_screen.dart';
+import 'constants.dart';
+import '../screens/forgot_password_screen.dart';
 
 class ForgotPasswordLayout extends StatelessWidget {
   const ForgotPasswordLayout({

@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Welcome Back',
                   style: GoogleFonts.cairo(
                       color: textColor,
-                      fontSize: 30,
+                      fontSize: 26,
                       fontWeight: FontWeight.w500,
                       height: 1),
                 ),

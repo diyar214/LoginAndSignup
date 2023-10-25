@@ -47,6 +47,8 @@ class _SignUpCardState extends State<SignUpCard> {
           ),
           MyTextFormField(
             label: 'Name',
+            icon: Icons.person,
+            hint: 'Full name',
             controller: nameController,
             focusNode: nameFocusNode,
             textInputAction: TextInputAction.next,
@@ -63,6 +65,8 @@ class _SignUpCardState extends State<SignUpCard> {
           ),
           MyTextFormField(
             label: 'Email',
+            icon: Icons.email,
+            hint: 'example@example.com',
             controller: emailController,
             focusNode: emailFocusNode,
             textInputAction: TextInputAction.next,
@@ -82,6 +86,8 @@ class _SignUpCardState extends State<SignUpCard> {
           ),
           MyTextFormField(
             label: 'Password',
+            icon: Icons.lock,
+            hint: 'e.g: Password123',
             controller: passwordController,
             focusNode: passwordFocusNode,
             textInputAction: TextInputAction.next,
@@ -90,7 +96,6 @@ class _SignUpCardState extends State<SignUpCard> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 passwordFocusNode.requestFocus();
-
                 return 'This field is required';
               } else if (value.length < 8) {
                 passwordFocusNode.requestFocus();
@@ -103,10 +108,13 @@ class _SignUpCardState extends State<SignUpCard> {
                 onPressed: () => setState(() => _obscureText = !_obscureText),
                 icon: Icon(
                     _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: primaryColor)),
+                    color: primaryColor,
+                    size: 22)),
           ),
           MyTextFormField(
             label: 'Contact number',
+            icon: Icons.phone,
+            hint: '0782000000',
             controller: contactNumController,
             focusNode: contactNumFocusNode,
             textInputAction: TextInputAction.done,

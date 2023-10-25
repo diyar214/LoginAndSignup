@@ -22,10 +22,10 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome\nTo MyApp',
+                'Welcome To MyApp',
                 style: GoogleFonts.cairo(
                   color: textColor,
-                  fontSize: 30,
+                  fontSize: 26,
                   fontWeight: FontWeight.w500,
                   height: 1.5,
                 ),

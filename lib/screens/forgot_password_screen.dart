@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login_page_task/widgets/constants.dart';
 
-import '../../widgets/app_bar.dart';
-import '../../widgets/app_button.dart';
-import '../../widgets/bordered_container.dart';
-import '../../widgets/text_form_field.dart';
-import '../home_screen.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/app_button.dart';
+import '../widgets/bordered_container.dart';
+import '../widgets/text_form_field.dart';
+import 'home_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
