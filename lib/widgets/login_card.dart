@@ -1,8 +1,6 @@
-// ignore: implementation_imports
-// ignore_for_file: body_might_complete_normally_nullable
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login_page_task/widgets/app_button.dart';
 
 import '../screens/forgot_password/forgot_password_layout.dart';
 import '../screens/home_screen.dart';
@@ -10,7 +8,6 @@ import '../screens/signup_screen.dart';
 import 'already_have_an_account.dart';
 import 'bordered_container.dart';
 import 'text_form_field.dart';
-import 'extension.dart';
 import 'constants.dart';
 
 class LogInCard extends StatefulWidget {
@@ -28,7 +25,8 @@ class _LogInCardState extends State<LogInCard> {
 
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
-  bool _obscureText = false;
+
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,77 +35,72 @@ class _LogInCardState extends State<LogInCard> {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Login',
-                style: GoogleFonts.cairo(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500,
-                  color: primaryColor,
-                ),
+            Text(
+              'Login',
+              style: GoogleFonts.cairo(
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                color: primaryColor,
               ),
             ),
             MyTextFormField(
-                label: const Text('Email'),
-                controller: emailController,
-                focusNode: emailFocusNode,
-                keyboardType: TextInputType.emailAddress,
-                obscureText: false,
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'This field is required';
-                  }
-                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                    return "Please enter a valid email address";
-                  }
-                  return null;
-                }),
+              label: 'Email',
+              controller: emailController,
+              focusNode: emailFocusNode,
+              keyboardType: TextInputType.emailAddress,
+              obscureText: false,
+              textInputAction: TextInputAction.next,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  emailFocusNode.requestFocus();
+                  return 'This field is required';
+                } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                  emailFocusNode.requestFocus();
+                  return "Please enter a valid email address";
+                }
+                return null;
+              },
+              onSaved: (String? value) => emailController.text = value!,
+            ),
             MyTextFormField(
-              label: const Text('Password'),
+              label: 'Password',
               controller: passwordController,
               focusNode: passwordFocusNode,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.visiblePassword,
               obscureText: _obscureText,
               validator: (value) {
-                if (value!.isEmpty || value.isValidPassword) {
+                if (value == null || value.isEmpty) {
+                  passwordFocusNode.requestFocus();
+                  return 'This field is required';
+                } else if (value.length < 8) {
                   passwordFocusNode.requestFocus();
                   return 'Enter a valid password';
                 }
+                return null;
               },
               suffixIcon: IconButton(
                   onPressed: () => setState(() => _obscureText = !_obscureText),
                   icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
                       color: primaryColor)),
+              onSaved: (String? value) => passwordController.text = value!,
             ),
             const SizedBox(height: 8),
             const ForgotPasswordLayout(),
-            Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                        (route) => false);
-                  }
-                },
-                child: BorderedContainer(
-                  color: primaryColor,
-                  child: Text(
-                    'Login',
-                    style: GoogleFonts.cairo(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: sconderyColor),
-                  ),
-                ),
-              ),
+            AppButton(
+              title: 'Log in',
+              onTap: () {
+                if (!_formKey.currentState!.validate()) {
+                  return;
+                } else {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      (route) => false);
+                }
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),

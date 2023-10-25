@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login_page_task/widgets/constants.dart';
 
 import '../../widgets/app_bar.dart';
+import '../../widgets/app_button.dart';
 import '../../widgets/bordered_container.dart';
 import '../../widgets/text_form_field.dart';
 import '../home_screen.dart';
@@ -18,6 +19,10 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +45,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   height: 1,
                 ),
               ),
-              const SizedBox(height: 90),
+              const SizedBox(height: 16),
               Text(
                 'Enter Your Email and we will send you a reset password link',
                 textAlign: TextAlign.center,
@@ -51,41 +56,34 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   height: 1,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 32),
               MyTextFormField(
-                  label: const Text('Email'),
-                  keyboardType: TextInputType.emailAddress,
-                  obscureText: false,
-                  textInputAction: TextInputAction.done,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'This field is required';
-                    }
-                    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return "Please enter a valid email address";
-                    }
-                    return null;
-                  }),
-              const SizedBox(height: 25.0),
-              GestureDetector(
+                label: 'Email',
+                controller: emailController,
+                focusNode: emailFocusNode,
+                keyboardType: TextInputType.emailAddress,
+                obscureText: false,
+                textInputAction: TextInputAction.next,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    emailFocusNode.requestFocus();
+                    return 'This field is required';
+                  }
+                  if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                    emailFocusNode.requestFocus();
+                    return "Please enter a valid email address";
+                  }
+                  return null;
+                },
+                onSaved: (String? value) => emailController.text = value!,
+              ),
+              AppButton(
+                title: 'Rest password',
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
-                        (route) => false);
-                  }
+                    return;
+                  } else {}
                 },
-                child: BorderedContainer(
-                  color: primaryColor,
-                  child: Text(
-                    'Reset Password',
-                    style: GoogleFonts.cairo(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: sconderyColor),
-                  ),
-                ),
               ),
             ],
           ),

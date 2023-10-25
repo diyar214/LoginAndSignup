@@ -12,7 +12,6 @@ class ForgotPasswordLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
           onTap: () {

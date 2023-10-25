@@ -1,14 +1,12 @@
-// ignore_for_file: body_might_complete_normally_nullable
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 import 'already_have_an_account.dart';
+import 'app_button.dart';
 import 'bordered_container.dart';
 import 'text_form_field.dart';
-import 'extension.dart';
 import 'constants.dart';
 
 class SignUpCard extends StatefulWidget {
@@ -21,78 +19,86 @@ class SignUpCard extends StatefulWidget {
 class _SignUpCardState extends State<SignUpCard> {
   final _formKey = GlobalKey<FormState>();
 
-  bool _obscureText = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController contactNumController = TextEditingController();
+
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode contactNumFocusNode = FocusNode();
+
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Sign up',
-              style: GoogleFonts.cairo(
-                fontSize: 28,
-                fontWeight: FontWeight.w500,
-                color: primaryColor,
-              ),
+          Text(
+            'Sign up',
+            style: GoogleFonts.cairo(
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
+              color: primaryColor,
             ),
           ),
           MyTextFormField(
-              label: Text(
-                'Name',
-                style: GoogleFonts.cairo(
-                  fontSize: 22,
-                  color: labalAndTextButtonColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.name,
-              obscureText: false,
-              validator: (value) {
-                if (value!.isEmpty || value.isValidName) {
-                  return 'Enter valid name';
-                }
-              }),
+            label: 'Name',
+            controller: nameController,
+            focusNode: nameFocusNode,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.name,
+            obscureText: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                nameFocusNode.requestFocus();
+                return 'This field is required';
+              }
+              return null;
+            },
+            onSaved: (String? value) => nameController.text = value!,
+          ),
           MyTextFormField(
-              label: Text(
-                'Email',
-                style: GoogleFonts.cairo(
-                  fontSize: 22,
-                  color: labalAndTextButtonColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.emailAddress,
-              obscureText: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'This field is required';
-                }
-                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                  return "Please enter a valid email address";
-                }
-                return null;
-              }),
+            label: 'Email',
+            controller: emailController,
+            focusNode: emailFocusNode,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            obscureText: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                emailFocusNode.requestFocus();
+                return 'This field is required';
+              } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                emailFocusNode.requestFocus();
+                return "Please enter a valid email address";
+              }
+              return null;
+            },
+            onSaved: (String? value) => emailController.text = value!,
+          ),
           MyTextFormField(
-            label: Text(
-              'Password',
-              style: GoogleFonts.cairo(
-                  fontSize: 22,
-                  color: labalAndTextButtonColor,
-                  fontWeight: FontWeight.w600),
-            ),
+            label: 'Password',
+            controller: passwordController,
+            focusNode: passwordFocusNode,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.visiblePassword,
             obscureText: _obscureText,
             validator: (value) {
-              if (value!.isEmpty || value.isValidPassword) {
-                return 'Enter a valid password';
+              if (value == null || value.isEmpty) {
+                passwordFocusNode.requestFocus();
+
+                return 'This field is required';
+              } else if (value.length < 8) {
+                passwordFocusNode.requestFocus();
+                return 'Password too short';
               }
+              return null;
             },
+            onSaved: (String? value) => passwordController.text = value!,
             suffixIcon: IconButton(
                 onPressed: () => setState(() => _obscureText = !_obscureText),
                 icon: Icon(
@@ -100,43 +106,35 @@ class _SignUpCardState extends State<SignUpCard> {
                     color: primaryColor)),
           ),
           MyTextFormField(
-              label: Text(
-                'Contact no.',
-                style: GoogleFonts.cairo(
-                  fontSize: 22,
-                  color: labalAndTextButtonColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.phone,
-              obscureText: false,
-              validator: (value) {
-                if (value!.isEmpty || value.isValidPhone) {
-                  return 'Enter a valid phone number';
-                }
-              }),
-          Padding(
-            padding: const EdgeInsets.only(top: 25.0),
-            child: GestureDetector(
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const HomeScreen()),
-                      (route) => false);
-                }
-              },
-              child: BorderedContainer(
-                color: primaryColor,
-                child: Text(
-                  'Sign in',
-                  style: GoogleFonts.cairo(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                      color: sconderyColor),
-                ),
-              ),
-            ),
+            label: 'Contact number',
+            controller: contactNumController,
+            focusNode: contactNumFocusNode,
+            textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.phone,
+            obscureText: false,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                contactNumFocusNode.requestFocus();
+                return 'This field is required';
+              } else if (value.length < 11) {
+                contactNumFocusNode.requestFocus();
+                return 'Phone Number must be 11 digits';
+              }
+              return null;
+            },
+            onSaved: (String? value) => contactNumController.text = value!,
+          ),
+          AppButton(
+            title: 'Sign up',
+            onTap: () {
+              if (!_formKey.currentState!.validate()) {
+                return;
+              } else {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const HomeScreen()),
+                    (route) => false);
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),

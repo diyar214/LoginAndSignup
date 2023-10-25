@@ -5,7 +5,7 @@ import '../widgets/constants.dart';
 
 // ignore: must_be_immutable
 class MyTextFormField extends StatefulWidget {
-  final Text label;
+  final String label;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
@@ -50,9 +50,9 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           focusedBorder: border(primaryColor),
           errorBorder: border(errorBorderColor),
           suffixIcon: widget.suffixIcon,
-          label: widget.label,
+          label: Text(widget.label),
           labelStyle: GoogleFonts.cairo(
-            fontSize: 22,
+            fontSize: 18,
             color: labalAndTextButtonColor,
             fontWeight: FontWeight.w600,
           ),
