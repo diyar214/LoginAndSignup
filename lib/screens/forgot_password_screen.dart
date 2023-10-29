@@ -6,9 +6,7 @@ import 'package:login_page_task/widgets/constants.dart';
 
 import '../widgets/app_bar.dart';
 import '../widgets/app_button.dart';
-import '../widgets/bordered_container.dart';
 import '../widgets/text_form_field.dart';
-import 'home_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -59,6 +57,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               const SizedBox(height: 32),
               MyTextFormField(
                 label: 'Email',
+                hint: 'example@example.com',
+                icon: Icons.email,
                 controller: emailController,
                 focusNode: emailFocusNode,
                 keyboardType: TextInputType.emailAddress,

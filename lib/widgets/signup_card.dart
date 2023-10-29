@@ -5,7 +5,6 @@ import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 import 'already_have_an_account.dart';
 import 'app_button.dart';
-import 'bordered_container.dart';
 import 'text_form_field.dart';
 import 'constants.dart';
 
